@@ -5,7 +5,9 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface NavItem {
   href: string;
@@ -19,6 +21,7 @@ interface Props {
 }
 
 export const NavbarSidebar = ({ items, open, onOpenChange }: Props) => {
+  const pathname = usePathname();
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="left" className="p-0 transition-none">
@@ -30,7 +33,10 @@ export const NavbarSidebar = ({ items, open, onOpenChange }: Props) => {
             <Link
               key={item.href}
               href={item.href}
-              className="w-full text-left p-4 hover:bg-black hover:text-white flex items-center text-base font-medium"
+              className={cn(
+                "w-full text-left p-4 hover:bg-black hover:text-white flex items-center text-base font-medium",
+                pathname === item.href ? "bg-gray-300 font-bold" : ""
+              )}
               onClick={() => onOpenChange(false)}
             >
               {item.children}
