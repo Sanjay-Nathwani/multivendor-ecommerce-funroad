@@ -1,8 +1,9 @@
+import { CategoriesGetManyOutput } from "@/modules/categories/types";
 import { Category } from "@/payload-types";
 import Link from "next/link";
 
 interface SubcategoryMenuProps {
-  category: Category;
+  category: CategoriesGetManyOutput[0];
   isOpen: boolean;
   position: { top: number; left: number };
 }
