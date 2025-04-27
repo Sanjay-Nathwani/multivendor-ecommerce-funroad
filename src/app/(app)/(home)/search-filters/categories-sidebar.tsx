@@ -20,14 +20,14 @@ interface Props {
 export const CategoriesSidebar = ({ open, onOpenChange }: Props) => {
   const trpc = useTRPC();
   const { data } = useQuery(trpc.categories.getMany.queryOptions());
-  
+
   const router = useRouter();
 
-  const [parentCategories, setParentCategories] = useState<
-    CategoriesGetManyOutput | null
+  const [parentCategories, setParentCategories] =
+    useState<CategoriesGetManyOutput | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<
+    CategoriesGetManyOutput[0] | null
   >(null);
-  const [selectedCategory, setSelectedCategory] =
-    useState<CategoriesGetManyOutput[0] | null>(null);
 
   const currentCategories = parentCategories ?? data ?? [];
 
@@ -88,7 +88,7 @@ export const CategoriesSidebar = ({ open, onOpenChange }: Props) => {
               Back
             </button>
           )}
-          {currentCategories.map((category) => (
+          {currentCategories?.map((category) => (
             <button
               key={category.slug}
               onClick={() => handleCategoryClick(category)}
